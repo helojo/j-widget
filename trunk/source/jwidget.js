@@ -1,6 +1,6 @@
 
 /**
-  * @fileoverview SliderÂÖ²¥Ğ§¹û
+  * @fileoverview Sliderè½®æ’­æ•ˆæœ
   * @version 1.0
   * @author jessezhang
   * @date: 2009-9-25
@@ -10,19 +10,19 @@
 QZFL.widget = QZFL.widget || {};
 
 /**
- * SlideÂÖ²¥Ğ§¹û
+ * Slideè½®æ’­æ•ˆæœ
  * 
- * @param {String|HTMLElement} el °üÀ¨idºÅ£¬»òÔòHtml Element¶ÔÏó£¬SliderÈİÆ÷
- * @param {json} ÅäÖÃ²ÎÊı
- *            @eventType         'mouseover' or 'click'£¬Ä¬ÈÏ'mouseover'
- *            @autoPlay          ÊÇ·ñ×Ô¶¯²¥·Å,Ä¬ÈÏ×Ô¶¯²¥·Å
- *            @autoPlayInterval  ×Ô¶¯²¥·Å¼ä¸ôÊ±¼ä£¬Ä¬ÈÏ3Ãë
- *            @effect            ²¥·ÅĞ§¹û 'none','scrollx', 'scrolly', 'fade'
- *            @sliderWrapper     SlideÄÚÈİitemµÄÈİÆ÷£¬Ä¬ÈÏÎªSliderÈİÆ÷µÄfirstChild
- *            @sliderNav         Slideµ¼º½µÄÈİÆ÷£¬Ä¬ÈÏÎªSliderÈİÆ÷µÄsecondChild
- *            @navClassOn        sliderNavÊó±êÒÆÉÏºóµÄÑùÊ½£¬Ä¬ÈÏÎª'on'
- *            @slideTime         »¬¶¯Ê±ÑÓ
- *            @panelSize         ¿í¶È£¨srcollx£©»ò ¸ß¶È£¨scrolly£©,ÈçÑùÊ½ÖĞÒÑÓĞ£¬»á×Ô¶¯»ñÈ¡£¬Ò»°ãÎŞĞèÌîĞ´
+ * @param {String|HTMLElement} el åŒ…æ‹¬idå·ï¼Œæˆ–åˆ™Html Elementå¯¹è±¡ï¼ŒSliderå®¹å™¨
+ * @param {json} é…ç½®å‚æ•°
+ *            @eventType         'mouseover' or 'click'ï¼Œé»˜è®¤'mouseover'
+ *            @autoPlay          æ˜¯å¦è‡ªåŠ¨æ’­æ”¾,é»˜è®¤è‡ªåŠ¨æ’­æ”¾
+ *            @autoPlayInterval  è‡ªåŠ¨æ’­æ”¾é—´éš”æ—¶é—´ï¼Œé»˜è®¤3ç§’
+ *            @effect            æ’­æ”¾æ•ˆæœ 'none','scrollx', 'scrolly', 'fade'
+ *            @sliderWrapper     Slideå†…å®¹itemçš„å®¹å™¨ï¼Œé»˜è®¤ä¸ºSliderå®¹å™¨çš„firstChild
+ *            @sliderNav         Slideå¯¼èˆªçš„å®¹å™¨ï¼Œé»˜è®¤ä¸ºSliderå®¹å™¨çš„secondChild
+ *            @navClassOn        sliderNavé¼ æ ‡ç§»ä¸Šåçš„æ ·å¼ï¼Œé»˜è®¤ä¸º'on'
+ *            @slideTime         æ»‘åŠ¨æ—¶å»¶
+ *            @panelSize         å®½åº¦ï¼ˆsrcollxï¼‰æˆ– é«˜åº¦ï¼ˆscrollyï¼‰,å¦‚æ ·å¼ä¸­å·²æœ‰ï¼Œä¼šè‡ªåŠ¨è·å–ï¼Œä¸€èˆ¬æ— éœ€å¡«å†™
  */
 QZFL.widget.Slide = function(el, conf) {
 	var $D = QZFL.dom;	
@@ -54,7 +54,7 @@ QZFL.widget.Slide = function(el, conf) {
 }
 
 QZFL.widget.Slide.prototype = (function(){
-	function each(obj, fn){//ÁÙÊ±Ê¹ÓÃ£¬Ô­QZFLµÄeachÓĞ¸öbug£¬´ıĞŞ¸´
+	function each(obj, fn){//ä¸´æ—¶ä½¿ç”¨ï¼ŒåŸQZFLçš„eachæœ‰ä¸ªbugï¼Œå¾…ä¿®å¤
 		for (var i=0, len=obj.length; i<len; i++) {
 			fn(obj[i], i);
 		}
