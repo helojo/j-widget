@@ -1,0 +1,248 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="Content-Language" content="zh-cn" />
+<title>图片轮播效果</title>
+<STYLE type="text/css"> 
+body {
+	font-size:12px;
+	margin:20px;
+}
+ul{
+	list-style-image:none;
+	list-style-position:outside;
+	list-style-type:none;
+}
+#container{
+	text-align:left
+}
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td, button{
+margin:0;
+padding:0;
+}
+
+
+a{color:#325e7f;}
+a:link, a:visited{text-decoration:none;}
+a:hover, a:active{text-decoration:underline;}
+
+.container, .container *{margin:0; padding:0;}
+.container{width:520px; height:160px; overflow:hidden; position:relative}
+.nav{ position:absolute; right:5px; bottom:5px;}
+.nav li{float: left;color: #09F;text-align: center;line-height: 16px;width: 16px;height: 16px;font-family: Arial;font-size: 12px;cursor: pointer;overflow: hidden;margin: 3px 1px;border: 2px solid #09F;background-color: #fff;}
+.nav li.on{color: #fff;line-height: 21px;width: 21px;height: 21px;font-size: 16px;margin: 0 1px;border: 0;background-color:#09F;font-weight: bold;}
+
+/*slider*/
+img{border:0;}
+#slidershow{width:520px;margin-bottom:10px; }
+.slider_top{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat 0 -50px;height:3px;font-size:0;line-height:0;}
+.contentslider{height:262px; width:514px;border:1px solid #dddddd;border-width:0 1px;padding:0 2px;overflow:hidden; position:relative}
+.pagination{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat -220px -380px;width:520px;height:30px; padding-top:5px;}
+.pagination a{float:left;width:100px;margin:0 15px;height:25px;overflow:hidden;color:#333;text-align:center;font-size:12px;line-height:25px;display:inline;}
+.pagination a.selected{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat -640px -320px;color:#fff;text-decoration:none;}
+
+
+/*slider*/
+#slidershow2{width:670px;margin-bottom:10px;}
+.slider_top2{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_game_channel.png) no-repeat 0 -50px;height:5px;font-size:0;line-height:0;}
+.slider_bottom2{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_game_channel.png) no-repeat 0 -77px;height:3px;font-size:0;line-height:0;}
+.slider_con2{position:relative;border:1px solid #cfcfcf;border-width:0 1px;padding-left:5px;height:280px;}
+.slider_text{position:absolute;left:5px;bottom:4px;width:445px;height:50px;color:#ffbd7d;z-index:100;}
+.slider_text h4{color:#FFF;font-size:14px;margin:8px 10px 0;}
+.slider_text p{margin:0 10px;padding-top:5px;}
+.slider_text_bg{position:absolute;left:5px;bottom:4px;width:445px;height:50px;filter:alpha(opacity=70);-moz-opacity:0.7;opacity:0.7;background-color:#000;z-index:10;}
+
+.contentslider2{width:445px;height:280px;}
+.contentslider2 .slider_ad img{width:445px;height:276px;}
+.pagination2{position:relative;width:214px;height:280px;margin:-282px 0 0 445px;}
+.pagination2 a{display:block;background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_game_channel.png) no-repeat -214px -80px;width:214px;height:47px;margin:-1px 0 0;padding:0;color:#333;text-indent:12px;font-size:12px;line-height:47px;border:none; color:#325E7F}
+/*.pagination a:active{color:#333;}*/
+.pagination2 a:hover,
+.pagination2 a:active{color:#333;}
+.pagination2 a:visited,.pagination2 a:link,{text-decoration:none}
+.pagination2 a.on{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_game_channel.png) no-repeat 0 -80px;color:#fff;text-decoration:none;}
+
+
+/*slider*/
+.slider_show3{position:relative; width:520px; height:186px; margin-bottom:10px;}
+.contentslider3{width:520px; height:160px;}
+.contentslider3 img{width:520px; height:160px;}
+.pagination3{height:26px;}
+.pagination3 a{float:left; background:url(http://imgcache.qq.com/vipstyle/vipportal_v3/img/vip/bg_index.png) no-repeat -220px -70px; width:104px; height:19px; padding-top:7px; text-align:center; line-height:1.231; font-size:12px}
+.pagination3 a.on{background:url(http://imgcache.qq.com/vipstyle/vipportal_v3/img/vip/bg_index.png) no-repeat -330px -70px; color:#595959; font-weight:700; text-decoration:none;}
+.slider_line_l{position:absolute; top:160px; background:url(http://imgcache.qq.com/vipstyle/vipportal_v3/img/vip/bg_index.png) no-repeat -220px -40px; width:2px; height:26px;}
+.slider_line_r{position:absolute; right:0; top:160px; background:url(http://imgcache.qq.com/vipstyle/vipportal_v3/img/vip/bg_index.png) no-repeat -738px -40px; width:2px; height:26px;}
+
+
+
+
+/*right box*/
+.life_box{position:relative;clear:both;background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_life_box.png) no-repeat -670px bottom;padding-bottom:15px;margin-bottom:10px; width:300px}
+.life_box .title{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_life_box.png) no-repeat -670px 0;height:60px;}
+.life_box .title span{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat;display:block;overflow:hidden;text-indent:-1000px;width:120px;height:17px;margin:12px 0 0 20px;}
+.life_box .see_more{text-align:right;}
+.life_box .see_more a{color:#AA0000;}
+
+#tab1 .title{height:40px;}
+#tab1 .tab1_tab{margin:0 1px;height:29px;}
+#tab1 .tab1_tab li{float:left;text-align:center;line-height:29px;margin-left:8px;display:inline;}
+#tab1 .tab1_tab li a{display:inline-block;width:89px;height:29px;background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat -92px -81px;font-weight:bold;color:#737373;}
+#tab1 .tab1_tab li.on a{background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat 0 -81px;color:#cd0000;}
+#tab1 .con{padding-top:10px;text-align:center;border-top:1px solid #d2d2d2;margin-top:-1px; overflow:hidden; height:95px;}
+#tab1 .con img{margin:0 auto;}
+#tab1 .normal_list{text-align:left;margin:0 15px; width:310px}
+#tab1 .normal_list li{margin-top:5px;background:none;padding-left:0}
+
+h2{ margin:20px; color:#90C}
+
+</STYLE>
+</head>
+<body>
+<div style="margin-left:200px; margin-bottom:300px;">
+<h2>Tab切换效果</h2>
+<div id="container">
+    <div id="sidebar">
+        <!--QQ特权活动start-->
+        <div id="tab1" class="life_box">
+            <ul class="tab1_tab" id="tab1_nav">
+                <li id="activity_title_1"><a href="javascript:;">精彩每一天</a></li>
+                <li id="activity_title_2"><a href="javascript:;">主题活动</a></li>
+                <li id="activity_title_3"><a href="javascript:;">活动预告</a></li>
+            </ul>
+            <div class="con" id="tab1_wrapper">
+                <ul class="normal_list">
+                    <li><a target="_blank" href="http://haoma.qq.com/static/book/booking_frame.html">[靓号] 靓号预订第一期火热发布</a></li>
+                    <li><a target="_blank" href="http://vip.qq.com/wallpic/index_wallpic_1_1.html">[壁纸] 会员国庆中秋壁纸闪亮上线</a></li>
+                    <li><a target="_blank" href="http://vip.qq.com/music_weekly/static/96.html">[音乐] 音乐周刊第76期：重拾红色的记忆</a></li>
+                    <li><a target="_blank" href="http://act.vip.qq.com/2009/60/">[主题] 国庆典藏活动出炉！</a></li>
+                </ul>
+                <ul class="normal_list">
+                    <li><a target="_blank" href="http://act.vip.qq.com/2009/60/index.html">[10月主题] 国庆60年典藏诚邀会员参与</a></li>
+                    <li><a target="_blank" href="http://act.vip.qq.com/2009/september/">[9月主题] QQ频道9月活动</a></li>
+                    <li><a target="_blank" href="http://act.vip.qq.com/2009/paopao/index.html">[卡通专区] 经典形象之炮炮兵专区</a></li>
+                    <li><a target="_blank" href="http://act.vip.qq.com/2009/77/">[8月主题] QQ会员别样过七夕</a></li>
+                </ul>
+                <ul class="normal_list">
+                    <li>[功能] 群图标功能即将上线</li>
+                    <li>[功能] 头像高清图功能即将上线</li>
+                    <li>[专区] 蘑菇点点卡通专区即将登场</li>
+                    <li>[特刊] QQ频道十月刊即将登场</li>
+                </ul>
+            </div>
+        </div>
+        <!--QQ特权活动 end-->
+    </div>
+</div>
+
+
+
+<h2>Slide轮播效果</h2>
+<!-- 轮播广告 开始 -->
+<div id="slidershow">
+    <div class="slider_top"></div>
+    <div id="slider" class="contentslider">
+        <div>
+            <div><a href="http://act.vip.qq.com/2009/vipshop/mall16.html" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/kkwu/mall16/514.jpg" width="514" height="262"></a></div>
+            <div><a href="http://act.vip.qq.com/2009/vipshop/7wolfnew/" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/flash/7wolf.jpg" width="514" height="262" /></a></div>
+            <div><a href="http://act.vip.qq.com/2009/vipshop/new/?shopid=1" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/kkwu/mack/ad/514_262.jpg" width="514" height="262"/></a></div>
+            <div><a href="http://act.vip.qq.com/2009/vipshop/hotsale/" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/hotsale/ad/514-262-8.jpg" width="514" height="262" /></a></div>
+        </div>
+    </div>
+    <div class="pagination" id="paginate_slider"> <a href="#" class="selected">靓号预订全新上</a> <a href="#">发掘愉悦时刻</a> <a href="#">享受惬意工作</a> <a href="#">6大卡通</a> </div>
+</div>
+<!-- 轮播广告 结束 -->
+<!--轮播广告-->
+<div id="slidershow2">
+    <div class="slider_top2"></div>
+    <div class="slider_con2">
+        <div id="slider2" class="contentslider2">
+            <div>
+                <div> <a target="_blank" href="http://haoma.qq.com/static/book/booking_frame.html"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/lianghao/445x276.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>靓号预订全新上线，首发130-132号段！[2009-09-24]</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+                <div> <a target="_blank" href="http://act.vip.qq.com/2009/book/book_04.html"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/baodian4/445.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>QQ会员功能宝典第四期——发掘愉悦时刻，享受惬意工作！[2009-9-11]</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+                <div> <a target="_blank" href="http://act.vip.qq.com/2009/60/index.html"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/10yuezhuti/445.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>国庆60年典藏诚邀会员参与！56民族头像，6大卡通国庆专题，专为尊贵的您！</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+                <div> <a target="_blank" href="http://book.qq.com/viparea/vip.htm"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/dushu/dushu2445.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>会员读书专区本周VIP书籍推荐！[2009-9-16]</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+                <div> <a target="_blank" href="http://act.vip.qq.com/2009/qqshow/index.html"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/qqshow/445X276.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>QQ会员QQ秀产品合作专区闪耀上线！QQ会员8折购买红钻限时优惠！更多特权敬请期待！马上进入专区尊享[2009-9-3]</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+                <div> <a target="_blank" href="http://act.vip.qq.com/2009/yearrenew/"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/nffb/445.jpg" alt="" /></a>
+                    <div class="slider_text">
+                        <p>参与年费回馈盛典--现在续费现在续费即可100%获得200点成长值并有WII、Itouch众多大礼等你拿！[2009-9-3]</p>
+                    </div>
+                    <div class="slider_text_bg"></div>
+                </div>
+            </div>
+        </div>
+        <div class="pagination2" id="paginate_slider2"> <a href="#" class="selected">国庆60年典藏诚邀会员</a> <a href="#">会员读书专区本周</a> <a href="#">QQ会员QQ秀产品合作</a> <a href="#">参与年费回馈盛典</a> <a href="#">QQ会员QQ秀产品合作</a> <a href="#">参与年费回馈盛典</a> </div>
+    </div>
+    <div class="slider_bottom"></div>
+</div>
+<!--轮播广告end-->
+<!-- 图片轮播 开始 -->
+<div class="slider_show3">
+    <div id="slider3" class="contentslider3">
+        <div>
+            <div><a href="http://game.vip.qq.com/monopoly/" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/youxipindao/zongdongyuanad/fsj/520X160.jpg" alt="" /></a></div>
+            <div><a href="http://act.vip.qq.com/2009/60/index.html" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/10yuezhuti/520.jpg" alt="" /></a></div>
+            <div><a href="http://book.qq.com/viparea/vip.htm" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/dushu/dushu2520.jpg" alt="" /></a></div>
+            <div><a href="http://user.qzone.qq.com/88881111/blog/1253677078" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/QQpindao/qqxintu/main-ad510.jpg" alt="" /></a></div>
+            <div><a href="http://act.vip.qq.com/2009/vipshop/guoqing/" target="_blank"><img src="http://imgcache.qq.com/club-photo/vip/kong/guoqing/520-160.jpg" alt="" /></a></div>
+        </div>
+    </div>
+    <div class="pagination3" id="paginate_slider3"> <a href="#" class="selected">国庆60年员</a> <a href="#">会员本周</a> <a href="#">QQ产品合作</a> <a href="#">参与年盛典</a> <a href="#">QQ会合作</a> </div>
+    <div class="slider_line_l"></div>
+    <div class="slider_line_r"></div>
+</div>
+<!-- 图片轮播 结束 -->
+<!-- 规范的轮播结构 开始 -->
+<div class="container" id="slider1">
+    <ul class="slider">
+        <li><IMG src="http://imgcache.qq.com/club-photo/vip/QQpindao/10yuezhuti/520.jpg" width="520" height="160" /></li>
+        <li><IMG src="http://imgcache.qq.com/club-photo/vip/youxipindao/zongdongyuanad/fsj/520X160.jpg" width="520" height="160" /></li>
+        <li><IMG src="http://imgcache.qq.com/club-photo/vip/QQpindao/qqxintu/main-ad510.jpg" width="520" height="160" /></li>
+        <li><IMG src="http://imgcache.qq.com/club-photo/vip/QQpindao/dushu/dushu2520.jpg" width="520" height="160" /></li>
+    </ul>
+    <ul class="nav" >
+        <li>1</li>
+        <li>2</li>
+        <li>3</li>
+        <li>4</li>
+    </ul>
+</div>
+</div>
+<!-- 规范的轮播结构 结束 -->
+<script src="http://imgcache.qq.com/qqvip/js/v1.0/qqviplib.js"></script>
+<script src="../source/jwidget.js"></script>
+<SCRIPT type="text/javascript">
+new QZFL.widget.Slide("slider1");
+new QZFL.widget.Slide("slider2", {sliderNav : 'paginate_slider2'});
+new QZFL.widget.Slide("slider3", {effect: 'none',sliderNav : 'paginate_slider3'});
+new QZFL.widget.Slide("slider", {effect: 'scrolly',sliderNav : 'paginate_slider', navClassOn : 'selected'});	
+new QZFL.widget.Slide("tab1",{effect: 'none', sliderNav : 'tab1_nav',sliderWrapper : 'tab1_wrapper'});
+</SCRIPT>
+</body>
+</HTML> 
+ 
