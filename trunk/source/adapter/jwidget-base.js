@@ -179,9 +179,7 @@
 		 */
 		setStyle : function(el, property, value) {
 			el = this.get(el);
-			if (!el || el.nodeType == 9) {
-				return false;
-			}
+			if (!el || el.nodeType == 9) return false;
 			switch (property) {
 				case "float" :
 					property = _isW3cMode ? "cssFloat" : "styleFloat";
@@ -199,9 +197,7 @@
 					}
 					break;
 				default :
-					if (typeof el.style[property] == "undefined") {
-						return false
-					}
+					if (typeof el.style[property] == "undefined")return false;
 					el.style[property] = value;
 					return true;
 			}
@@ -234,15 +230,13 @@
 						return false;
 					} else {
 						el.className += ' ' + cname;
-						return true;
 					}
 				} else {
 					el.className = cname;
-					return true;
 				}
-			} else {
-				return false;
+				return true;
 			}
+			return false;
 		},
 	
 		/**
