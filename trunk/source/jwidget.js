@@ -1,35 +1,37 @@
 
 /**
-  * @fileoverview Slider轮播效果
-  * @version 1.0
-  * @author jessezhang
-  * @date: 2009-9-25
-  */
+ * @fileoverview jWidget javascript widget library
+ * @version 1.0
+ * @author jessezhang <jianguang.qq@gmail.com>
+ * Released under the MIT Licenses. 
+ * More information: http://code.google.com/p/j-widget/
+ */
 
-
-QZFL.widget = QZFL.widget || {};
+var jWidget = {};
+jWidget.ui = {};
 
 /**
  * Slide轮播效果
  * 
  * @param {String|HTMLElement} el 包括id号，或则Html Element对象，Slider容器
  * @param {json} 配置参数
- *            @eventType         'mouseover' or 'click'，默认'mouseover'
- *            @autoPlay          是否自动播放,默认自动播放
- *            @autoPlayInterval  自动播放间隔时间，默认3秒
- *            @effect            播放效果 'none','scrollx', 'scrolly', 'fade'
- *            @sliderWrapper     Slide内容item的容器，默认为Slider容器的firstChild
- *            @sliderNav         Slide导航的容器，默认为Slider容器的secondChild
- *            @navClassOn        sliderNav鼠标移上后的样式，默认为'on'
- *            @slideTime         滑动时延
- *            @panelSize         宽度（srcollx）或 高度（scrolly）,如样式中已有，会自动获取，一般无需填写
+ *		@eventType         'mouseover' or 'click'，默认'mouseover'
+ *		@autoPlay          是否自动播放,默认自动播放
+ *		@autoPlayInterval  自动播放间隔时间，默认3秒
+ *		@effect            播放效果 'none','scrollx', 'scrolly', 'fade'
+ *		@sliderWrapper     Slide内容item的容器，默认为Slider容器的firstChild
+ *		@sliderNav         Slide导航的容器，默认为Slider容器的secondChild
+ *		@navClassOn        sliderNav鼠标移上后的样式，默认为'on'
+ *		@slideTime         滑动时延
+ *		@width             宽度（srcollx）,如样式中已有，会自动获取，一般无需填写
+ *		@height            高度（scrolly）,如样式中已有，会自动获取，一般无需填写
  */
-QZFL.widget.Slide = function(el, conf) {
+jWidget.ui.SlideView = function(el, conf) {
 	var $D = QZFL.dom;	
 	conf = conf || {};	
 	
 	this.eventType = conf.eventType || 'mouseover' , 
-	this.autoPlayInterval = Math.abs(conf.autoPlayInterval || 3) * 1000;
+	this.autoPlayInterval = conf.autoPlayInterval || 3 * 1000;
 
 	this._play = true; 
 	this._timer = null;	
@@ -39,21 +41,21 @@ QZFL.widget.Slide = function(el, conf) {
 	this._sliderNav = $D.get(conf.sliderNav) || $D.getNextSibling(this._sliderWrapper);
 	this._sliderNavCon = $e(this._sliderNav).getChildren().elements;
 	this._effect = conf.effect || 'scrollx', 
-	this._panelSize = conf.panelSize || $D.getSize($D.getFirstChild(this._sliderWrapper))[this._effect == "scrolly" ? 1 : 0 ];
+	this._panelSize = (this._effect == "scrolly" ? conf.height : conf.width ) || $D.getSize($D.getFirstChild(this._sliderWrapper))[this._effect == "scrolly" ? 1 : 0 ];
 	this._count = conf.count || $e(this._sliderWrapper).getChildren().elements.length;
 	this._navClassOn = conf.navClassOn || "on"; 	
 	this._target = 0;	
 	this._changeProperty  = this._effect == "scrolly" ? "top" : "left";	
 	
 	this.curIndex = 0;
-	this.step = Math.abs(this._effect == "none" ? 1 : (conf.Step || 5));
-	this.slideTime = Math.abs(conf.slideTime || 10);
+	this.step = this._effect == "none" ? 1 : (conf.Step || 5);
+	this.slideTime = conf.slideTime || 10;
 	
 	this.init();
 	this.run();
 }
 
-QZFL.widget.Slide.prototype = (function(){
+jWidget.ui.SlideView.prototype = (function(){
 	function each(obj, fn){//临时使用，原QZFL的each有个bug，待修复
 		for (var i=0, len=obj.length; i<len; i++) {
 			fn(obj[i], i);
@@ -144,3 +146,13 @@ QZFL.widget.Slide.prototype = (function(){
 		}
 	}
 })();
+
+jWidget.ui.TabView = function(el, conf){
+	var $D = QZFL.dom;
+	conf = conf || {};
+	conf.effect = conf.effect || "none";
+	conf.sliderContainer = $D.get(el);
+	conf.sliderNav = $D.get(conf.sliderNav) || $D.getFirstChild(conf.sliderContainer);
+	conf.sliderWrapper = $D.get(conf.sliderWrapper) || $D.getNextSibling(conf.sliderNav);
+	return new jWidget.ui.SlideView(el, conf);
+}
