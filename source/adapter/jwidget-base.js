@@ -10,16 +10,27 @@
 (function(){
 	jWidget = {
 		version : '1.0.0',
-		each : function(array, fn){
-			if(typeof array.length == "undefined" || typeof array == "string"){
-				array = [array];
+		each : function(obj, fn){
+			var i = 0, k, _fn = fn;	
+			if (Object.prototype.toString.call(obj) === "[object Array]") {
+				if (!!obj.forEach) {
+					obj.forEach(fn);
+				} else {
+					var len = obj.length
+					while (i < len) {
+						_fn(obj[i], i, obj);
+						++i;
+					}
+				}
+			} else {
+				for (k in obj) {
+					_fn(obj[k], k, obj);
+				}
 			}
-			for(var i = 0, len = array.length; i < len; i++){
-				if(fn.call(array[i], array[i], i, array) === false){ return i; };
-			}
+			return true;
 		},
 		extend : function(obj, ext) {
-			if(o && ext && typeof ext == 'object'){
+			if(obj && ext && typeof ext == 'object'){
 				this.each(ext, function(v, k) {
 					obj[k] = v;
 				});
