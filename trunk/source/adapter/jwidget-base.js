@@ -17,6 +17,13 @@
 			for(var i = 0, len = array.length; i < len; i++){
 				if(fn.call(array[i], array[i], i, array) === false){ return i; };
 			}
+		},
+		extend : function(obj, ext) {
+			if(o && ext && typeof ext == 'object'){
+				this.each(ext, function(v, k) {
+					obj[k] = v;
+				});
+			}
 		}
 	};
 	
@@ -24,10 +31,9 @@
 	
 	jWidget.dom = {	
 		get : function(e){
-			if (e && ((e.tagName || e.item) || e.nodeType == 9)) {
-				return e;
-			}
-			return document.getElementById(e);
+			if(typeof e == "string")
+				return document.getElementById(e);
+			return e;
 		},
 		
 		/**
@@ -39,10 +45,7 @@
 		 * @return HTMLElement
 		 */
 		getFirstChild : function(el) {
-			el = this.getNode(el);
-			if (!el) {
-				return null;
-			}
+			el = this.get(el);
 			var child = !!el.firstChild && el.firstChild.nodeType == 1 ? el.firstChild : null;
 			return child || this.getNextSibling(el.firstChild);
 		},
@@ -56,10 +59,7 @@
 		 * @return HTMLElement
 		 */
 		getNextSibling : function(el) {
-			el = this.getNode(el);
-			if (!el) {
-				return null;
-			}
+			el = this.get(el);
 			while (el) {
 				el = el.nextSibling;
 				if (!!el && el.nodeType == 1) {
@@ -71,7 +71,7 @@
 		
 		getChildren : function(el) {
 			var _arr = [];
-			var el = jWidget.dom.getFirstChild(el);
+			var el = this.getFirstChild(el);
 			while (el) {
 				if (!!el && el.nodeType == 1) {
 					_arr.push(el);
@@ -79,24 +79,6 @@
 				el = el.nextSibling;
 			}	
 			return _arr;
-		},
-		
-		/**
-		 * 获得对象
-		 * 
-		 * @param {String|HTMLNode} el 包括id号，或则HTML Node对象
-		 *            @example
-		 *            QZFL.dom.getNode("div_id");
-		 * @return Object
-		 */
-		getNode : function(el) {
-			if (el && (el.nodeType || el.item)) {
-				return el;
-			}
-			if (typeof el === 'string') {
-				return this.getById(el);
-			}
-			return null;
 		},
 		
 		/**
@@ -114,12 +96,9 @@
 			if (el) {
 				//修正 border 和 padding 对 getSize的影响
 				jWidget.each(["Left", "Right", "Top", "Bottom"], function(v){ 
-					_fix[v == "Left" || v == "Right"?0:1] += (parseInt(jWidget.dom.getStyle(el, "border" + v + "Width"), 10) || 0) + (parseInt(jWidget.dom.getStyle(el, "padding" + v), 10) || 0);
+					_fix[v == "Left" || v == "Right" ? 0 : 1] += (parseInt(jWidget.dom.getStyle(el, "border" + v + "Width"), 10) || 0) + (parseInt(jWidget.dom.getStyle(el, "padding" + v), 10) || 0);
 				});
-			
-				var _w = el.offsetWidth - _fix[0];
-				var _h = el.offsetHeight - _fix[1];
-				return [_w, _h];
+				return [el.offsetWidth - _fix[0], el.offsetHeight - _fix[1]];
 			}
 			return [-1, -1];
 		},

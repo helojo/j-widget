@@ -18,7 +18,8 @@
 			for(var i = 0, len = array.length; i < len; i++){
 				if(fn.call(array[i], array[i], i, array) === false){ return i; };
 			}
-		}
+		},
+		extend : QZFL.object.extend
 	};	
 	
 	jWidget.dom = QZFL.dom;
