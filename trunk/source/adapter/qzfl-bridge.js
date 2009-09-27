@@ -23,7 +23,11 @@
 	};	
 	
 	jWidget.dom = QZFL.dom;
-	jWidget.css	= QZFL.css;
+	jWidget.extend(QZFL.dom, {
+		hasClass : QZFL.css.hasClassName,
+		addClass : QZFL.css.addClassName,
+		removeClass : QZFL.css.removeClassName
+	});
 	
 	//QZFL.dom没有getChildren，但是其Element下有，可以修改本函数，通过调用Element来获取children
 	jWidget.dom.getChildren = function(el) {

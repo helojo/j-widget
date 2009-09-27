@@ -147,6 +147,8 @@
 							} catch (e) {}
 						}
 						return val / 100;
+					}else{
+						return parseFloat((computed || el.style)[property]);
 					}
 					break;
 			}
@@ -191,18 +193,16 @@
 					el.style[property] = value;
 					return true;
 			}
-		}
-	}
-	
-	jWidget.css = {	
+		},
+		
 		/**
 		 * 是否有指定的样式类名称
 		 * @param {Object} el 指定的HTML元素
 		 * @param {String} cname 指定的类名称
-		 * @example QZFL.css.hasClassName($("div_id"),"cname");
+		 * @example QZFL.css.hasClass($("div_id"),"cname");
 		 * @return Boolean
 		 */
-		hasClassName : function(el, cname) {
+		hasClass : function(el, cname) {
 			return (el && cname) ? new RegExp('\\b' + cname + '\\b').test(el.className) : false;
 		},
 		
@@ -210,13 +210,13 @@
 		 * 增加一个样式类名
 		 * @param {Object} el 指定的HTML元素
 		 * @param {Object} cname 指定的类名称
-		 * @example QZFL.css.addClassName($("ele"),"cname");
+		 * @example QZFL.css.addClass($("ele"),"cname");
 		 * @return Boolean
 		 */
-		addClassName : function(el, cname) {
+		addClass : function(el, cname) {
 			if (el && cname) {
 				if (el.className) {
-					if (jWidget.css.hasClassName(el, cname)) {
+					if (jWidget.dom.hasClass(el, cname)) {
 						return false;
 					} else {
 						el.className += ' ' + cname;
@@ -233,10 +233,10 @@
 		 * 除去一个样式类名
 		 * @param {Object} el 指定的HTML元素
 		 * @param {String} cname 指定的类名称
-		 * @example QZFL.css.removeClassName($("ele"),"cname");
+		 * @example QZFL.css.removeClass($("ele"),"cname");
 		 * @return Boolean
 		 */
-		removeClassName : function(el, cname) {
+		removeClass : function(el, cname) {
 			if (el && cname && el.className) {
 				var old = el.className;
 				el.className = (el.className.replace(new RegExp('\\b' + cname + '\\b'), ''));
