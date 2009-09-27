@@ -7,11 +7,9 @@
  * More information: http://code.google.com/p/j-widget/
  */
  
-(function(){
-	jWidget.ui = jWidget.ui || {};
-	
-	var $D = jWidget.dom;	
-	var $C = jWidget.css;
+(function(){	
+	var $ = jWidget,
+		$D = $.dom;	
 	
 	/**
 	 * Slide轮播效果
@@ -22,14 +20,14 @@
 	 *		@autoPlay          是否自动播放,默认自动播放
 	 *		@autoPlayInterval  自动播放间隔时间，默认3秒
 	 *		@effect            播放效果 'none','scrollx', 'scrolly', 'fade'
-	 *		@sliderWrapper     Slide内容item的容器，默认为Slider容器的firstChild
-	 *		@sliderNav         Slide导航的容器，默认为Slider容器的secondChild
-	 *		@navClassOn        sliderNav鼠标移上后的样式，默认为'on'
+	 *		@panelWrapper     Slide内容item的容器，默认为Slider容器的firstChild
+	 *		@navWrapper        Slide导航的容器，默认为Slider容器的secondChild
+	 *		@navClassOn        navs鼠标移上后的样式，默认为'on'
 	 *		@slideTime         滑动时延
 	 *		@width             宽度（srcollx）,如样式中已有，会自动获取，一般无需填写
 	 *		@height            高度（scrolly）,如样式中已有，会自动获取，一般无需填写
 	 */
-	jWidget.ui.SlideView = function(el, conf) {
+	_Slide = function(conf) {
 		conf = conf || {};	
 		
 		this.eventType = conf.eventType || 'mouseover' , 
@@ -37,118 +35,131 @@
 	
 		this._play = true; 
 		this._timer = null;	
-		this._sliderContainer = $D.get(el);
-		this._sliderWrapper = $D.get(conf.sliderWrapper) || $D.getFirstChild(this._sliderContainer);
-		this._sliderWrapperCon = $D.getChildren(this._sliderWrapper);
-		this._sliderNav = $D.get(conf.sliderNav) || $D.getNextSibling(this._sliderWrapper);
-		this._sliderNavCon = $D.getChildren(this._sliderNav);
+		this._fadeTimer = null;
+		this._container = $D.get(conf.container);
+		this._panelWrapper = $D.get(conf.panelWrapper) || $D.getFirstChild(this._container);
+		this._sliders = $D.getChildren(this._panelWrapper);
+		this._navWrapper = $D.get(conf.navWrapper) || $D.getNextSibling(this._panelWrapper);
+		this._navs = $D.getChildren(this._navWrapper);
 		this._effect = conf.effect || 'scrollx', 
-		this._panelSize = (this._effect == "scrolly" ? conf.height : conf.width ) || $D.getSize($D.getFirstChild(this._sliderWrapper))[this._effect == "scrolly" ? 1 : 0 ];
-		this._count = conf.count || $D.getChildren(this._sliderWrapper).length;
+		this._panelSize = (this._effect.indexOf("scrolly") == -1 ?  conf.width : conf.height) || $D.getSize($D.getFirstChild(this._panelWrapper))[this._effect.indexOf("scrolly") == -1 ? 0 : 1 ];
+		this._count = conf.count || $D.getChildren(this._panelWrapper).length;
 		this._navClassOn = conf.navClassOn || "on"; 	
 		this._target = 0;	
-		this._changeProperty  = this._effect == "scrolly" ? "top" : "left";	
+		this._changeProperty  = this._effect.indexOf("scrolly") == -1 ? "left" : "top" ;	
 		
 		this.curIndex = 0;
-		this.step = this._effect == "none" ? 1 : (conf.Step || 5);
+		this.step = this._effect.indexOf("scroll") == -1 ? 1 : (conf.Step || 5);
 		this.slideTime = conf.slideTime || 10;
 		
 		this.init();
-		this.run();
+		this.run(true);
 	}
 	
-	jWidget.ui.SlideView.prototype = (function(){
-		return {  
-			init : function(){	
-				$D.setStyle(this._sliderContainer, "overflow", "hidden");
-				$D.setStyle(this._sliderContainer, "position", "relative");
-				$D.setStyle(this._sliderWrapper, "position", "relative");
-				
-				if(this._effect == "scrollx" || this._effect == "none"){
-					$D.setStyle(this._sliderWrapper, "width", this._count * (this._panelSize+200) + "px");
-					jWidget.each(this._sliderWrapperCon,function(el){			
-						el.style.styleFloat = el.style.cssFloat = "left";
-					})
-				}
-				var _this = this;
-				if(_this.eventType == 'click'){  //onclick
-					jWidget.each(this._sliderNavCon, function(el, i){
-						el.onclick = (function(_this){return function(){
-							$C.addClassName(el, _this._navClassOn);
-							_this._play = false;
-							_this.curIndex = i;
-							_this._play = true;
-							_this.run();
-						}})(_this)
-					})	
-				} else {  //onmouseover
-					jWidget.each(this._sliderNavCon, function(el, i){
-						el.onmouseover = (function(_this){return function(){
-							$C.addClassName(el, _this._navClassOn);
-							_this._play = false;
-							_this.curIndex = i;
-							_this.run();
-						}})(_this)
-						el.onmouseout = (function(_this){return function(){
-							$C.removeClassName(el, _this._navClassOn);
-							_this._play = true;
-							_this.run();
-						}})(_this)
-					})	
-				}			
-				this._sliderWrapper.onmouseover = (function(_this){return function(){
-					_this.stop();
-				}})(this)  
-				this._sliderWrapper.onmouseout = (function(_this){return function(){
-					_this.run();
-				}})(this)			
-			},  
+	_Slide.prototype = {  
+		init : function(){	
+			$D.setStyle(this._container, "overflow", "hidden");
+			$D.setStyle(this._container, "position", "relative");
+			$D.setStyle(this._panelWrapper, "position", "relative");
 			
-			run : function() {
-				if(this.curIndex < 0){
-					this.curIndex = this._count - 1;
-				} else if (this.curIndex >= this._count){
-					this.curIndex = 0; 
-				}			
-				this._target = -1 * this._panelSize * this.curIndex;
-				var _this = this;
-				jWidget.each(this._sliderNavCon, function(el, i){
-					_this.curIndex == (i) ? $C.addClassName(el, _this._navClassOn) : $C.removeClassName(el, _this._navClassOn);
+			if(this._effect.indexOf("scrolly") == -1){ 
+				$D.setStyle(this._panelWrapper, "width", this._count * (this._panelSize+200) + "px");
+				$.each(this._sliders,function(el){			
+					el.style.styleFloat = el.style.cssFloat = "left";
+				})
+			}
+			var _this = this;
+			if(_this.eventType == 'click'){  //onclick
+				$.each(this._navs, function(el, i){
+					el.onclick = (function(_this){return function(){
+						$D.addClass(el, _this._navClassOn);
+						_this._play = false;
+						_this.curIndex = i;
+						_this._play = true;
+						_this.run();
+					}})(_this)
 				})	
-				this.move();
-			},
-			
-			move : function() {
-				clearTimeout(this._timer);
-				var _this = this, 
-					_cur_property = parseInt(this._sliderWrapper.style[this._changeProperty]) || 0, 
-					_distance = (this._target - _cur_property) / this.step;
-				if (Math.abs(_distance) < 1 && _distance != 0) {
-					_distance = _distance > 0 ? 1 : -1;
-				}				
-				if (_distance != 0) {
-					this._sliderWrapper.style[this._changeProperty] = (_cur_property + _distance) + "px";
-					this._timer = setTimeout(function(){_this.move();}, this.slideTime);
-				} else {
-					this._sliderWrapper.style[this._changeProperty] = this._target + "px";
-					if (this._play) { 
-						this._timer = setTimeout(function(){_this.curIndex++; _this.run();}, this.autoPlayInterval); 
-					}
-				}
-			},
+			} else {  //onmouseover
+				$.each(this._navs, function(el, i){
+					el.onmouseover = (function(_this){return function(){
+						$D.addClass(el, _this._navClassOn);
+						_this._play = false;
+						_this.curIndex = i;
+						_this.run();
+					}})(_this)
+					el.onmouseout = (function(_this){return function(){
+						$D.removeClass(el, _this._navClassOn);
+						_this._play = true;
+						_this.run();
+					}})(_this)
+				})	
+			}					
+		},  
 		
-			stop : function() {
-				clearTimeout(this._timer);
+		run : function(isInit) {
+			if(this.curIndex < 0){
+				this.curIndex = this._count - 1;
+			} else if (this.curIndex >= this._count){
+				this.curIndex = 0; 
+			}			
+			this._target = -1 * this._panelSize * this.curIndex;
+			var _this = this;
+			$.each(this._navs, function(el, i){
+				_this.curIndex == (i) ? $D.addClass(el, _this._navClassOn) : $D.removeClass(el, _this._navClassOn);
+			})	
+			
+			this.scroll();
+			
+			if(this._effect.indexOf("fade") >= 0){
+				$D.setStyle(this._panelWrapper, "opacity", isInit ? 0.5 : 0.1);
+				this.fade();
+			}
+		},
+		
+		scroll : function() {
+			clearTimeout(this._timer);
+			var _this = this, 
+				_cur_property = parseInt(this._panelWrapper.style[this._changeProperty]) || 0, 
+				_distance = (this._target - _cur_property) / this.step;
+			if (Math.abs(_distance) < 1 && _distance != 0) {
+				_distance = _distance > 0 ? 1 : -1;
+			}				
+			if (_distance != 0) {
+				this._panelWrapper.style[this._changeProperty] = (_cur_property + _distance) + "px";
+				this._timer = setTimeout(function(){_this.scroll();}, this.slideTime);
+			} else {
+				this._panelWrapper.style[this._changeProperty] = this._target + "px";
+				if (this._play) { 
+					this._timer = setTimeout(function(){_this.curIndex++; _this.run();}, this.autoPlayInterval); 
+				}
+			}
+		},
+		
+		fade : function() {
+			var _opacity = $D.getStyle(this._panelWrapper, "opacity");
+			var _this = this;
+			if(_opacity < 1){
+				$D.setStyle(this._panelWrapper, "opacity", parseFloat(_opacity) + 0.01);
+				setTimeout(function(){_this.fade();}, 1);
 			}
 		}
-	})();
+	}
+	
+	jWidget.ui = jWidget.ui || {};
+	
+	jWidget.ui.SlideView = function(el, conf) {
+		conf = conf || {};
+		conf.container = el;
+		return new _Slide(conf);	
+	}
 	
 	jWidget.ui.TabView = function(el, conf){
 		conf = conf || {};
+		conf.container = el;
 		conf.effect = conf.effect || "none";
-		conf.sliderContainer = $D.get(el);
-		conf.sliderNav = $D.get(conf.sliderNav) || $D.getFirstChild(conf.sliderContainer);
-		conf.sliderWrapper = $D.get(conf.sliderWrapper) || $D.getNextSibling(conf.sliderNav);
-		return new jWidget.ui.SlideView(el, conf);
+		conf.container = $D.get(el);
+		conf.navWrapper = $D.get(conf.navWrapper) || $D.getFirstChild(conf.container);
+		conf.panelWrapper = $D.get(conf.panelWrapper) || $D.getNextSibling(conf.navWrapper);
+		return new _Slide(conf);
 	}
 })()
