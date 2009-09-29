@@ -13,21 +13,22 @@
 	
 	/**
 	 * Slide轮播效果
-	 * 
-	 * @param {String|HTMLElement} el 包括id号，或则Html Element对象，Slider容器
 	 * @param {json} 配置参数
-	 *		@eventType         'mouseover' or 'click'，默认'mouseover'
-	 *		@autoPlay          是否自动播放,默认自动播放
-	 *		@autoPlayInterval  自动播放间隔时间，默认3秒
-	 *		@effect            播放效果 'none','scrollx', 'scrolly', 'fade'
-	 *		@panelWrapper     Slide内容item的容器，默认为Slider容器的firstChild
-	 *		@navWrapper        Slide导航的容器，默认为Slider容器的secondChild
-	 *		@navClassOn        navs鼠标移上后的样式，默认为'on'
-	 *		@slideTime         滑动时延
-	 *		@width             宽度（srcollx）,如样式中已有，会自动获取，一般无需填写
-	 *		@height            高度（scrolly）,如样式中已有，会自动获取，一般无需填写
+	 *		@param {String|HTMLElement} container 包括id号，或则Html Element对象，Slider容
+	 *		@param eventType         'mouseover' or 'click'，默认'mouseover'
+	 *		@param autoPlay          是否自动播放,默认自动播放
+	 *		@param autoPlayInterval  自动播放间隔时间，默认3秒
+	 *		@param effect            播放效果 'none','scrollx', 'scrolly', 'fade'
+	 *		@param panelWrapper     Slide内容item的容器，默认为Slider容器的firstChild
+	 *		@param navWrapper        Slide导航的容器，默认为Slider容器的secondChild
+	 *		@param navClassOn        navs鼠标移上后的样式，默认为'on'
+	 *		@param slideTime         滑动时延
+	 *		@param width             宽度（srcollx）,如样式中已有，会自动获取，一般无需填写
+	 *		@param height            高度（scrolly）,如样式中已有，会自动获取，一般无需填写
 	 */
 	_Slide = function(conf) {
+		var defaultCfg = {
+			}
 		conf = conf || {};	
 		
 		this.eventType = conf.eventType || 'mouseover' , 
@@ -41,7 +42,7 @@
 		this._sliders = $D.getChildren(this._panelWrapper);
 		this._navWrapper = $D.get(conf.navWrapper) || $D.getNextSibling(this._panelWrapper);
 		this._navs = $D.getChildren(this._navWrapper);
-		this._effect = conf.effect || 'scrollx', 
+		this._effect = conf.effect || 'scrollx';
 		this._panelSize = (this._effect.indexOf("scrolly") == -1 ?  conf.width : conf.height) || $D.getSize($D.getFirstChild(this._panelWrapper))[this._effect.indexOf("scrolly") == -1 ? 0 : 1 ];
 		this._count = conf.count || $D.getChildren(this._panelWrapper).length;
 		this._navClassOn = conf.navClassOn || "on"; 	
