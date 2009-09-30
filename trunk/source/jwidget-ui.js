@@ -140,7 +140,7 @@
 			var _opacity = $D.getStyle(this._panelWrapper, "opacity");
 			var _this = this;
 			if(_opacity < 1){
-				$D.setStyle(this._panelWrapper, "opacity", parseFloat(_opacity) + 0.01);
+				$D.setStyle(this._panelWrapper, "opacity", parseFloat(_opacity) + 0.02);
 				setTimeout(function(){_this.fade();}, 1);
 			}
 		}
