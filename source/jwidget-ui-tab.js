@@ -21,19 +21,16 @@
 	 *		@param navWrapper        Slide导航的容器，默认为Slider容器的secondChild
 	 *		@param navClassOn        navs鼠标移上后的样式，默认为'on'
 	 */
-	_Tab = function(conf) {
-		conf = conf || {};	
-		
+	_Tab = function(conf) {		
 		this.eventType = conf.eventType || 'mouseover', 
 		this._container = conf.container;		 
-        this._type = conf.type || "normal";
-        
-        this._panels = [];
-        this._navs = [];
-        
+        this._type = conf.type || "normal";         
+        this._navClassOn = conf.navClassOn || "on"; 
         var _this = this;
         if(this._type == "list"){		
         	var cons = $D.getChildren(this._container);
+        	this._panels = [];
+            this._navs = [];    
             $.each(cons, function(el, i){
                 if(i%2){
                     _this._panels.push(el);
@@ -47,32 +44,24 @@
             this._panelWrapper = $D.get(conf.panelWrapper) || $D.getNextSibling(this._navWrapper);
             this._panels = $D.getChildren(this._panelWrapper);           
         }
-        
-		this._navClassOn = conf.navClassOn || "on";              
+                     
         this.curIndex = 0;  	
         $.each(this._panels, function(el, i){
             if(el.style.display != "none"){
                 _this.curIndex = i;
             } 
         })
-		this.init();
+		$.each(this._navs, function(el, i){
+            el['on'+_this.eventType] = (function(_this){return function(){                  
+                $D.removeClass(_this._navs[_this.curIndex], _this._navClassOn);
+                _this._panels[_this.curIndex].style.display = 'none';
+                _this.curIndex = i;                    
+                $D.addClass(el, _this._navClassOn);
+                _this._panels[_this.curIndex].style.display = '';
+            }})(_this)
+        })
 	} 
-	
-	_Tab.prototype = {  
-		init : function(){				
-			var _this = this;
-			$.each(this._navs, function(el, i){
-				el['on'+_this.eventType] = (function(_this){return function(){					
-                    $D.removeClass(_this._navs[_this.curIndex], _this._navClassOn);
-                    _this._panels[_this.curIndex].style.display = 'none';
-                    _this.curIndex = i;                    
-                    $D.addClass(el, _this._navClassOn);
-                    _this._panels[_this.curIndex].style.display = '';
-				}})(_this)
-			})
-		}
-	}
-	
+		
 	jWidget.ui = jWidget.ui || {};
 	
 	jWidget.ui.TabView = function(el, conf){
