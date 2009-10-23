@@ -12,6 +12,82 @@
 <!-- demo1 -->
 <style type="text/css">
 
+
+
+.life_box {
+    background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_life_box.png) no-repeat -670px bottom;
+    padding-bottom:15px;
+    margin-bottom:10px;
+    width:300px
+}
+.life_box .title {
+    background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_life_box.png) no-repeat -670px 0;
+    height:60px;
+}
+.life_box .title span {
+    background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat;
+    display:block;
+    overflow:hidden;
+    text-indent:-1000px;
+    width:120px;
+    height:17px;
+    margin:12px 0 0 20px;
+}
+.life_box .see_more {
+    text-align:right;
+}
+.life_box .see_more a {
+    color:#AA0000;
+}
+#tab1 .title {
+    height:40px;
+}
+#tab1 .tab1_tab {
+    margin:0 1px;
+    height:29px;
+}
+#tab1 .tab1_tab li {
+    float:left;
+    text-align:center;
+    line-height:29px;
+    margin-left:8px;
+    display:inline;
+}
+#tab1 .tab1_tab li a {
+    display:inline-block;
+    width:89px;
+    height:29px;
+    background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat -92px -81px;
+    font-weight:bold;
+    color:#737373;
+}
+#tab1 .tab1_tab li.on a {
+    background:url(http://imgcache.qq.com/vipportal_v2/img/channel/bg_qq_channel.png) no-repeat 0 -81px;
+    color:#cd0000;
+}
+#tab1 .con {
+    padding-top:10px;
+    text-align:center;
+    border-top:1px solid #d2d2d2;
+    margin-top:-1px;
+    height:95px;
+}
+#tab1 .con img {
+    margin:0 auto;
+}
+#tab1 .normal_list {
+    text-align:left;
+    margin:0 15px;
+    width:310px
+}
+#tab1 .normal_list li {
+    margin-top:5px;
+    background:none;
+    padding-left:0
+}
+
+
+
 html{color:#000;background:#FFF;}body,div,dl,dt,dd,ul,ol,li,h1,div,div,div,div,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td{margin:0;padding:0;}table{border-collapse:collapse;border-spacing:0;}fieldset,img{border:0;}address,caption,cite,code,dfn,em,strong,th,var{font-style:normal;font-weight:normal;}li{list-style:none;}caption,th{text-align:left;}h1,div,div,div,div,h6{font-size:100%;font-weight:normal;}q:before,q:after{content:'';}abbr,acronym {border:0;font-variant:normal;}sup {vertical-align:text-top;}sub {vertical-align:text-bottom;}input,textarea,select{font-family:inherit;font-size:inherit;font-weight:inherit;}input,textarea,select{*font-size:100%;}legend{color:#000;}
 
 
@@ -52,6 +128,42 @@ a.reply-link { clear: both; display: block; margin: 20px; font-size: 14px; color
         }
  /* end of tabview */
 </style>
+
+
+    <h2>Tab切换效果</h2>
+    <div id="container">
+        <div id="sidebar">
+            <!--QQ特权活动start-->
+            <div id="tab1" class="life_box">
+                <ul class="tab1_tab" id="tab1_nav">
+                    <li id="activity_title_1" class="on"><a href="javascript:;">精彩每一天</a></li>
+                    <li id="activity_title_2"><a href="javascript:;">主题活动</a></li>
+                    <li id="activity_title_3"><a href="javascript:;">活动预告</a></li>
+                </ul>
+                <div class="con" id="tab1_wrapper">
+                    <ul class="normal_list">
+                        <li><a target="_blank" href="http://haoma.qq.com/static/book/booking_frame.html">[靓号] 靓号预订第一期火热发布</a></li>
+                        <li><a target="_blank" href="http://vip.qq.com/wallpic/index_wallpic_1_1.html">[壁纸] 会员国庆中秋壁纸闪亮上线</a></li>
+                        <li><a target="_blank" href="http://vip.qq.com/music_weekly/static/96.html">[音乐] 音乐周刊第76期：重拾红色的记忆</a></li>
+                        <li><a target="_blank" href="http://act.vip.qq.com/2009/60/">[主题] 国庆典藏活动出炉！</a></li>
+                    </ul>
+                    <ul class="normal_list" style="display:none">
+                        <li><a target="_blank" href="http://act.vip.qq.com/2009/60/index.html">[10月主题] 国庆60年典藏诚邀会员参与</a></li>
+                        <li><a target="_blank" href="http://act.vip.qq.com/2009/september/">[9月主题] QQ频道9月活动</a></li>
+                        <li><a target="_blank" href="http://act.vip.qq.com/2009/paopao/index.html">[卡通专区] 经典形象之炮炮兵专区</a></li>
+                        <li><a target="_blank" href="http://act.vip.qq.com/2009/77/">[8月主题] QQ会员别样过七夕</a></li>
+                    </ul>
+                    <ul class="normal_list" style="display:none">
+                        <li>[功能] 群图标功能即将上线</li>
+                        <li>[功能] 头像高清图功能即将上线</li>
+                        <li>[专区] 蘑菇点点卡通专区即将登场</li>
+                        <li>[特刊] QQ频道十月刊即将登场</li>
+                    </ul>
+                </div>
+            </div>
+            <!--QQ特权活动 end-->
+        </div>
+    </div>
 <div class="tv-container" id="demo1">
     <ul class="tv-nav">
         <li>标题 A</li>
@@ -101,8 +213,9 @@ a.reply-link { clear: both; display: block; margin: 20px; font-size: 14px; color
 
 
 <script src="../source/adapter/jwidget-base.js"></script>
-<script src="../source/jwidget-ui-tab.js"></script>
+<script src="../source/widget/tab.js"></script>
 <script type="text/javascript"> 
+    jWidget.ui.TabView("tab1");
     jWidget.ui.TabView("demo1");
     jWidget.ui.TabView("J_brandTab1",{"type":"list"});
 </script>
