@@ -55,7 +55,7 @@
 		
 		this.init();
 		this.run(true);
-	}
+	} 
 	
 	_Slide.prototype = {  
 		init : function(){	
