@@ -27,8 +27,6 @@
 	 *		@param height            高度（scrolly）,如样式中已有，会自动获取，一般无需填写
 	 */
 	_Slide = function(conf) {
-		var defaultCfg = {
-			}
 		conf = conf || {};	
 		
 		this.eventType = conf.eventType || 'mouseover' , 
@@ -40,10 +38,11 @@
 		this._container = $D.get(conf.container);
 		this._panelWrapper = $D.get(conf.panelWrapper) || $D.getFirstChild(this._container);
 		this._sliders = $D.getChildren(this._panelWrapper);
-		this._navWrapper = $D.get(conf.navWrapper) || $D.getNextSibling(this._panelWrapper);
-		this._navs = $D.getChildren(this._navWrapper);
+		this._navWrapper = $D.get(conf.navWrapper) || $D.getNextSibling(this._panelWrapper) || null;
+		this._navs = (this._navWrapper && $D.getChildren(this._navWrapper)) || null;
 		this._effect = conf.effect || 'scrollx';
 		this._panelSize = (this._effect.indexOf("scrolly") == -1 ?  conf.width : conf.height) || $D.getSize($D.getFirstChild(this._panelWrapper))[this._effect.indexOf("scrolly") == -1 ? 0 : 1 ];
+		//this._panelSize = (this._effect.indexOf("scrolly") == -1 ?  conf.width : conf.height) || $D.getSize(this._container)[this._effect.indexOf("scrolly") == -1 ? 0 : 1 ]; 
 		this._count = conf.count || $D.getChildren(this._panelWrapper).length;
 		this._navClassOn = conf.navClassOn || "on"; 	
 		this._target = 0;	
@@ -69,32 +68,34 @@
 					el.style.styleFloat = el.style.cssFloat = "left";
 				})
 			}
-			var _this = this;
-			if(_this.eventType == 'click'){  //onclick
-				$.each(this._navs, function(el, i){
-					el.onclick = (function(_this){return function(){
-						$D.addClass(el, _this._navClassOn);
-						_this._play = false;
-						_this.curIndex = i;
-						_this._play = true;
-						_this.run();
-					}})(_this)
-				})	
-			} else {  //onmouseover
-				$.each(this._navs, function(el, i){
-					el.onmouseover = (function(_this){return function(){
-						$D.addClass(el, _this._navClassOn);
-						_this._play = false;
-						_this.curIndex = i;
-						_this.run();
-					}})(_this)
-					el.onmouseout = (function(_this){return function(){
-						$D.removeClass(el, _this._navClassOn);
-						_this._play = true;
-						_this.run();
-					}})(_this)
-				})	
-			}					
+			if(this._navs){
+    			var _this = this;
+    			if(_this.eventType == 'click'){  //onclick
+    				$.each(this._navs, function(el, i){
+    					el.onclick = (function(_this){return function(){
+    						$D.addClass(el, _this._navClassOn);
+    						_this._play = false;
+    						_this.curIndex = i;
+    						_this._play = true;
+    						_this.run();
+    					}})(_this)
+    				})	
+    			} else {  //onmouseover
+    				$.each(this._navs, function(el, i){
+    					el.onmouseover = (function(_this){return function(){
+    						$D.addClass(el, _this._navClassOn);
+    						_this._play = false;
+    						_this.curIndex = i;
+    						_this.run();
+    					}})(_this)
+    					el.onmouseout = (function(_this){return function(){
+    						$D.removeClass(el, _this._navClassOn);
+    						_this._play = true;
+    						_this.run();
+    					}})(_this)
+    				})	
+    			}	
+			}
 		},  
 		
 		run : function(isInit) {
@@ -105,10 +106,11 @@
 			}			
 			this._target = -1 * this._panelSize * this.curIndex;
 			var _this = this;
-			$.each(this._navs, function(el, i){
-				_this.curIndex == (i) ? $D.addClass(el, _this._navClassOn) : $D.removeClass(el, _this._navClassOn);
-			})	
-			
+			if(this._navs){
+    			$.each(this._navs, function(el, i){
+    				_this.curIndex == (i) ? $D.addClass(el, _this._navClassOn) : $D.removeClass(el, _this._navClassOn);
+    			})	
+			}
 			this.scroll();
 			
 			if(this._effect.indexOf("fade") >= 0){
@@ -146,21 +148,9 @@
 		}
 	}
 	
-	jWidget.ui = jWidget.ui || {};
-	
 	jWidget.ui.SlideView = function(el, conf) {
 		conf = conf || {};
 		conf.container = el;
 		return new _Slide(conf);	
 	}
-	
-	jWidget.ui.TabView = function(el, conf){
-		conf = conf || {};
-		conf.container = el;
-		conf.effect = conf.effect || "none";
-		conf.container = $D.get(el);
-		conf.navWrapper = $D.get(conf.navWrapper) || $D.getFirstChild(conf.container);
-		conf.panelWrapper = $D.get(conf.panelWrapper) || $D.getNextSibling(conf.navWrapper);
-		return new _Slide(conf);
-	}
-})()
+})();

@@ -51,6 +51,12 @@
                 _this.curIndex = i;
             } 
         })
+
+		this._panels[this.curIndex].style.display = '';
+		this._panels[this.curIndex].style.display = '';
+		$D.removeClass(this._navs[this.curIndex], this._navClassOn);
+		$D.addClass(this._navs[this.curIndex], this._navClassOn);
+
 		$.each(this._navs, function(el, i){
             el['on'+_this.eventType] = (function(_this){return function(){                  
                 $D.removeClass(_this._navs[_this.curIndex], _this._navClassOn);
@@ -58,15 +64,14 @@
                 _this.curIndex = i;                    
                 $D.addClass(el, _this._navClassOn);
                 _this._panels[_this.curIndex].style.display = '';
+                try{QZFL.lazyLoad.loadHideImg(_this._panels[_this.curIndex])}catch(e){}//loadLoad隐藏的图片
             }})(_this)
         })
-	} 
-		
-	jWidget.ui = jWidget.ui || {};
+	}
 	
 	jWidget.ui.TabView = function(el, conf){
 		conf = conf || {};
 		conf.container = $D.get(el);
 		return new _Tab(conf);
 	}
-})()
+})();

@@ -40,5 +40,7 @@
 			el = el.nextSibling;
 		}	
 		return _arr;
-	}	
-})()
+	}		 
+        
+    jWidget.ui = jWidget.ui || {};
+})();
