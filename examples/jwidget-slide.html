@@ -388,14 +388,20 @@ h2 {
 #slider5_nav .on img {
 	border-color:#FF9;
 }
+#slider6 {
+    width:760px;
+    height:100px;
+    overflow:hidden
+}
 </STYLE>
 </head>
 <body>
 <div style="margin-left:200px; margin-bottom:300px;">
+<!--
     <h2>Tab切换效果</h2>
     <div id="container">
         <div id="sidebar">
-            <!--QQ特权活动start-->
+           
             <div id="tab1" class="life_box">
                 <ul class="tab1_tab" id="tab1_nav">
                     <li id="activity_title_1"><a href="javascript:;">精彩每一天</a></li>
@@ -423,9 +429,12 @@ h2 {
                     </ul>
                 </div>
             </div>
-            <!--QQ特权活动 end-->
+            
         </div>
     </div>
+-->
+    
+    
     <h2>Slide轮播效果</h2>
     <!-- 轮播广告 开始 -->
     <div id="slidershow">
@@ -490,6 +499,19 @@ h2 {
         <div class="slider_bottom"></div>
     </div>
     <!--轮播广告end-->
+    
+    <!-- 轮播广告 开始 -->
+    <div id="slider6" >
+        <ul class="slider">              
+            <li class="slider_ad"><a target="_blank" href="http://auction1.paipai.com/E343F632000000000063383B048F3FF9"><img src="http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/ad/PONY.jpg" class="loading_58_58" width="760" height="100" alt="pony-单品" title="pony-单品" /></a></li>
+            <li class="slider_ad"><a target="_blank" href="http://auction1.paipai.com/C243F63200000000004238050457868C"><img src="http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/ad/lining.jpg" class="loading_58_58" width="760" height="100" alt="李宁单品" title="李宁单品" /></a></li>
+            <li class="slider_ad"><a target="_blank" href="http://auction1.paipai.com/CD43F63200000000004D38A305036765"><img src="http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/ad/uiyi.jpg" class="loading_58_58" width="760" height="100" alt="佑一单品" title="佑一单品" /></a></li>
+        </ul> 
+    </div>
+    <!-- 轮播广告 结束 -->
+    
+    <br />
+    
     <!-- 图片轮播 开始 -->
     <div id="slider5">
         <ul id="slider5_panel" class="slider5_panel">
@@ -540,16 +562,21 @@ h2 {
         </ul>
     </div>
 	<!-- 规范的轮播结构 结束 -->
+	
+	
+	
 </div>
 <script src="../source/adapter/jwidget-base.js"></script>
-<script src="../source/widget/slide.js"></script>
+<script src="../source/ui/slide.js"></script>
 <script type="text/javascript">
-jWidget.ui.TabView("tab1");
+//jWidget.ui.TabView("tab1");
 jWidget.ui.SlideView("slider5");
 jWidget.ui.SlideView("slider", {effect: 'fade scrollx', navWrapper : 'paginate_slider', navClassOn : 'selected'});
 jWidget.ui.SlideView("slider2", {effect: 'scrolly', navWrapper : 'paginate_slider2'});
 jWidget.ui.SlideView("slider3", {effect: 'fade', navWrapper : 'paginate_slider3'});	
 jWidget.ui.SlideView("slider4", {effect: 'none'});
+
+jWidget.ui.SlideView("slider6", {effect: 'fade'});
 </script>
 </body>
 </HTML>

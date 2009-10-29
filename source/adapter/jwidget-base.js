@@ -245,5 +245,7 @@
 				return false;
 			}
 		}
-	}
+	}	 
+        
+    jWidget.ui = jWidget.ui || {};
 })()
