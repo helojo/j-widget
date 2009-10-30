@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta http-equiv="Content-Language" content="zh-cn" />
-<title>jWidget—SlideView轮播</title>
+<title>jWidget—TabView 切换</title>
 <style type="text/css">
 /* reset */
 body, div, dl, dt, dd, ul, ol, li{padding:0; margin:0;}
@@ -12,8 +12,14 @@ input, label, select, option, textarea, button, legend{font:12px/18px Verdana, S
 table{border-collapse:collapse; border-spacing:0; font:12px/18px Verdana, Simsun, Helvetica, Arial, sans-serif;}
 ul{list-style:none;}
 body{background-color:#FFFFFF;font:12px/18px Verdana, Simsun, Helvetica, Arial, sans-serif; color:#333333; text-align:left;}
-fieldset{ margin:14px; padding:14px; float:left}
-.con{width:590px; float:left}
+fieldset{ margin:14px; padding:14px; float:left;clear:both}
+/* link */
+a{color:#686868;}
+a:link, a:visited{text-decoration:none;}
+a:hover{text-decoration:underline;}
+.hot{color:#cd0000;}
+a.hot:link, a.hot:visited{text-decoration:underline;}
+a.hot:hover, a.hot:active{text-decoration:none;}
 
 dt.on span {background-position:208px -209px;}
 dt span {background-position:210px -231px;border:1px solid #FFFFFF;color:#808080;display:block;overflow:hidden;background-image:url(http://img08.taobaocdn.com/tps/i1/T1A9RXXe8rXXXXXXXX-55-448.png);background-repeat:no-repeat;}
@@ -21,17 +27,141 @@ dt span b{ color:#F60;}
 dl {border:1px solid #DDDDDD;height:228px;overflow:hidden;width:228px;}
 dt {background-position:0 -4px;	background-repeat:repeat-x;	border-bottom:1px solid #DDDDDD;cursor:pointer;height:25px;line-height:25px;	background-image:url(http://img08.taobaocdn.com/tps/i1/T1A9RXXe8rXXXXXXXX-55-448.png)}
 
+
+/* theme */
+.theme{clear:both; height:340px; margin-bottom:10px;}
+.theme_tab{height:50px;}
+.theme_tab li{float:left;}
+.theme_tab li a{display:block; width:190px; height:50px;}
+.theme_show{position:relative; height:290px;}
+.theme_show li{float:left;}
+.theme_tab li a.theme_tab1{background:url(http://imgcache.qq.com/club-photo/vip/kong/love1/2.jpg) no-repeat;}
+.theme_tab li a.theme_tab1:hover,
+.theme_tab .on .theme_tab1{background:url(http://imgcache.qq.com/club-photo/vip/kong/love1/2.jpg) no-repeat 0 -50px;}
+#zhuti_con_1{background:url(http://imgcache.qq.com/club-photo/vip/kong/love1/1.jpg) no-repeat;}
+.theme_tab li a.theme_tab2{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/2.jpg) no-repeat;}
+.theme_tab li a.theme_tab2:hover,
+.theme_tab .on .theme_tab2{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/2.jpg) no-repeat 0 -50px;}
+#zhuti_con_2{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/2.1.jpg) no-repeat;}
+.theme_tab li a.theme_tab3{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/6.jpg) no-repeat;}
+.theme_tab li a.theme_tab3:hover,
+.theme_tab .on .theme_tab3{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/6.jpg) no-repeat 0 -50px;}
+#zhuti_con_3{background:url(http://imgcache.qq.com/club-photo/vip/shopping/guanfangdian/portal/zhuti/6.1.jpg) no-repeat;}
+.theme_tab li a.theme_tab4{background:url(http://imgcache.qq.com/club-photo/vip/kong/paobu/1.jpg) no-repeat;}
+.theme_tab li a.theme_tab4:hover,
+.theme_tab .on .theme_tab4{background:url(http://imgcache.qq.com/club-photo/vip/kong/paobu/1.jpg) no-repeat 0 -50px;}
+#zhuti_con_4{background:url(http://imgcache.qq.com/club-photo/vip/kong/paobu/760.jpg) no-repeat;}
+
+
+/* normal */
+.wrap{margin-bottom:10px;}
+.detail{background-color:#FFFFFF; border:1px solid #dddddd; border-width:0 1px; zoom:1; min-height:10px; }
+.detail:after{content:"."; display:block; height:0; font-size:0; clear:both; visibility:hidden;}
+.normal_list li{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat -975px -204px; padding-left:10px;}
+.keep{width:100%; overflow:hidden; word-break:keep-all; white-space:nowrap;text-overflow:ellipsis; -o-text-overflow:ellipsis;}
+/* pic_loading */
+.loading_58_58{background:center url(http://imgcache.qq.com/club/vipshop/img/loading/loading_58_58.gif) no-repeat}
+
+.shop_tab{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat 0 -120px; height:33px; padding-top:5px;}
+.shop_tab ul{float:right; margin-right:5px;}
+.shop_tab ul li{float:left; width:82px; margin-left:-1px; line-height:33px; display:inline; cursor:default}
+.shop_tab ul li a{display:block; background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat -440px -320px; width:82px; text-align:center; text-decoration:none; color:#333333;}
+.shop_tab ul .tab_on a,
+.shop_tab ul li a:hover{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat -440px -280px; border-left:none; position:relative; font-weight:700;}
+.shop_tab ul #tab_first{margin-left:0;}
+
+#sale .detail{border-color:#ffa9a9; border-width:0 2px;}
+#sale .bottom{background-position:0 -180px;}
+.content .bottom{background:url(http://imgcache.qq.com/vipstyle/vipshop_v1/img/bg_vipshop.png) no-repeat 0 -560px; height:10px; font-size:0; line-height:0;}
+
+.shop_show{zoom:1; min-height:100px;}
+.shop_show li{float:left; width:144px; margin:5px 0 5px 6px; display:inline;}
+.shop_show li a{float:left; width:126px; height:180px; overflow:hidden; padding:8px; border:1px solid #ffffff;}
+.shop_show li a:hover{background-color:#fff7e7; border-color:#ffe5c6; text-decoration:none;}
+.shop_show li a img{background:#fff;border:1px solid #dddddd;}
+.shop_show li a span{display:block; clear:both;}
+.shop_show li a .price{color:#888888;}
+.shop_show li a .keep{display:block; font-weight:normal;}
+.content {float:right;width:760px;}
 </style>
 </head>
 <body>
 <h1>
     <center>
-        jWidget—TabView 切换
+        jWidget—TabView 切换&nbsp;&nbsp;&nbsp;&nbsp;<a href="jwidget-slide.html" style="text-decoration:underline">Slide轮播</a>
     </center>
 </h1>
-<div class="con">
 <fieldset>
     <legend>Tab demo 1</legend>
+ 	<div class="theme" id="theme">
+        <ul class="theme_tab" id="theme_nav">
+            <li id="zhuti_title_1" ><a href="http://act.vip.qq.com/" target="_blank" class="theme_tab1"></a></li>
+            <li id="zhuti_title_2" ><a href="http://act.vip.qq.com/2009/vipshop/white/" target="_blank" class="theme_tab2"></a></li>
+            <li id="zhuti_title_3" ><a href="http://act.vip.qq.com/2009/astro/libra.html" target="_blank" class="theme_tab3"></a></li>
+            <li id="zhuti_title_4" ><a href="http://act.vip.qq.com/2009/vipshop/paoxie/" target="_blank" class="theme_tab4"></a></li>
+        </ul>
+        <span id="theme_panel">
+            <ul id="zhuti_con_1" style="display:none" class="theme_show"></ul>
+            <ul id="zhuti_con_2" style="display:none" class="theme_show"></ul>
+            <ul id="zhuti_con_3" class="theme_show"></ul>
+            <ul id="zhuti_con_4" style="display:none" class="theme_show"></ul>
+        </span>
+    </div>
+</fieldset>    
+
+<fieldset>
+    <legend>Tab demo 2 
+    </legend><div class="content">
+        <div id="sale" class="wrap">
+            <div class="shop_tab">
+                <ul id="danpin1_nav">
+                    <li><a>最热推荐</a></li>
+                    <li><a>送Q币</a></li>
+                </ul>
+            </div>
+            <div class="detail" id="danpin1_panel"> 
+                <ul class="shop_show" style="display:none">
+                    <li>
+                        <a href="{url}" target="_blank"><img width="120" height="120" src="http://img5.paipaiimg.com/6eed963c/item-4AD82F5C-FD43F63200000000007D38C5052F66E8.1.120x120.jpg"/>
+                        <span class=""><strong class="keep">{recmdRegName}</strong></span>
+                        <span class="price">市场价:<del>￥534</del></span>
+                        <span>会员价:<strong class="hot">￥34</strong></span></a>
+                    </li> 
+                    <li>
+                        <a href="{url}" target="_blank"><img width="120" height="120" src="http://img4.paipaiimg.com/f39e2bee/item-4ABC9AF5-0C44F63200000000000C38B0052A1E0B.1.120x120.jpg"/>
+                        <span class=""><strong class="keep">{recmdRegName}</strong></span>
+                        <span class="price">市场价:<del>￥345</del></span>
+                        <span>会员价:<strong class="hot">￥53</strong></span></a>
+                    </li> 
+                    <li>
+                        <a href="{url}" target="_blank"><img width="120" height="120" src="http://img6.paipaiimg.com/41dddd5f/item-4ADD2090-0644F63200000000000638BF054B45E9.1.120x120.jpg" />
+                        <span class=""><strong class="keep">353453</strong></span>
+                        <span class="price">市场价:<del>￥53345</del></span>
+                        <span>会员价:<strong class="hot">￥354</strong></span></a>
+                    </li> 
+                    <li>
+                        <a href="{url}" target="_blank"><img width="120" height="120" src="http://img4.paipaiimg.com/f39e2bee/item-4ABC9AF5-0C44F63200000000000C38B0052A1E0B.1.120x120.jpg"/>
+                        <span class=""><strong class="keep">{recmdRegName}</strong></span>
+                        <span class="price">市场价:<del>￥345</del></span>
+                        <span>会员价:<strong class="hot">￥53</strong></span></a>
+                    </li> 
+                    <li>
+                        <a href="{url}" target="_blank"><img width="120" height="120" src="http://img6.paipaiimg.com/41dddd5f/item-4ADD2090-0644F63200000000000638BF054B45E9.1.120x120.jpg" />
+                        <span class=""><strong class="keep">353453</strong></span>
+                        <span class="price">市场价:<del>￥53345</del></span>
+                        <span>会员价:<strong class="hot">￥354</strong></span></a>
+                    </li> 
+                </ul>
+                <ul class="shop_show" id="commendList_4" style="display:none">
+                    <div style="width:750px;height:200px" class="loading_58_58"></div>
+                </ul>
+            </div>
+            <div class="bottom"></div>
+        </div>
+    </div>
+</fieldset>
+<fieldset>
+    <legend>Tab demo 3</legend>
     <dl id="tab2">
         <dt><span><b>1</b>美腿秘籍潮流冬靴疯狂搭配</span></dt>
         <dd style="display: none" ><a href="" ><img src="http://img05.taobaocdn.com/tps/i5/T1a_dmXi0CXXXXXXXX-230-100.jpg" alt="" /></a></dd>
@@ -45,11 +175,13 @@ dt {background-position:0 -4px;	background-repeat:repeat-x;	border-bottom:1px so
         <dd style="display: none"><a href=""><img src="http://img05.taobaocdn.com/tps/i5/T1LTpmXjhsXXXXXXXX-230-100.jpg" alt="" /></a></dd>
     </dl>
 </fieldset>
-</div>
+
 <script src="../source/adapter/jwidget-base.js"></script>
 <script src="../source/ui/tab.js"></script>
 <script type="text/javascript"> 
     jWidget.ui.TabView("tab2",{"type":"list"});
+    jWidget.ui.TabView("theme", {panelWrapper : 'theme_panel', navWrapper : 'theme_nav'});	
+	jWidget.ui.TabView("sale", {panelWrapper : 'danpin1_panel', navWrapper : 'danpin1_nav', navClassOn:'tab_on'});
 </script>
 </body>
 </html>
