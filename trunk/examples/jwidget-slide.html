@@ -46,6 +46,8 @@ a.hot:hover, a.hot:active{text-decoration:none;}
 #slider2_nav li {float:left;margin:12px 15px;}
 #slider2_nav li img {width:86px;height:50px;border:2px solid #888;}
 #slider2_nav .on img {border-color:#FF9;}
+
+
 .slider3, .slider3 * {margin:0;padding:0;}
 .slider3 {width:520px;height:160px;overflow:hidden;position:relative}
 .slider3_nav {position:absolute;right:5px;bottom:5px;}
@@ -53,7 +55,7 @@ a.hot:hover, a.hot:active{text-decoration:none;}
 .slider3_nav li.on {color: #fff;line-height: 21px;width: 21px;height: 21px;font-size: 16px;margin: 0 1px;border: 0;background-color:#09F;font-weight: bold;}
 
 /*slider4*/
-.slider4_con {position:relative;width:520px;height:186px;margin-bottom:10px;}
+.slider4_con {position:relative;width:520px;height:186px;margin-bottom:10px; overflow:hidden}
 .slider4 {width:520px;height:160px;}
 .slider4 img {width:520px;height:160px;}
 .slider4_nav {height:26px;}
@@ -178,9 +180,8 @@ a.hot:hover, a.hot:active{text-decoration:none;}
 </fieldset>
 
 </div>
-</div>
-<script src="../source/adapter/jwidget-base.js"></script>
-<script src="../source/ui/slide.js"></script>
+<!-- 独立版本 -->
+<script src="../build/release/jwidget_1.0.0-min.js"></script>
 <script type="text/javascript">
 jWidget.ui.SlideView("slider1", {panelWrapper:"slide_panel",navWrapper:"slide_nav"});
 jWidget.ui.SlideView("slider2", {effect: 'scrolly'});
@@ -188,5 +189,18 @@ jWidget.ui.SlideView("slider3", {effect: 'scrolly fade'});
 jWidget.ui.SlideView("slider4", {effect: 'fade', navWrapper : 'slider4_nav'});
 jWidget.ui.SlideView("slider5", {effect: 'fade'});	
 </script>
+
+<!-- QZFL版本 -->
+<!--
+<script src="http://imgcache.qq.com/ac/qzone/qzfl/qzfl_2.0.6.1.js"></script>
+<script src="../build/release/jwidget_qzfl_1.0.0-min.js"></script>
+<script type="text/javascript">
+QZFL.ui.SlideView("slider1", {panelWrapper:"slide_panel",navWrapper:"slide_nav"});
+QZFL.ui.SlideView("slider2", {effect: 'scrolly'});
+QZFL.ui.SlideView("slider3", {effect: 'scrolly fade'});
+QZFL.ui.SlideView("slider4", {effect: 'fade', navWrapper : 'slider4_nav'});
+QZFL.ui.SlideView("slider5", {effect: 'fade'});	
+</script>
+-->
 </body>
 </HTML>
