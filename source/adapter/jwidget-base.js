@@ -6,7 +6,7 @@
  * Released under the MIT Licenses. 
  * More information: http://code.google.com/p/j-widget/
  */
-
+;
 (function(){
 	jWidget = {
 		version : '1.0.0',
